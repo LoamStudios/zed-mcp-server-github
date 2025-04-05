@@ -11,11 +11,19 @@ struct GitHubContextServerSettings {
     github_personal_access_token: String,
 }
 
-struct GitHubModelContextExtension;
+struct GitHubModelContextExtension {
+    cached_binary_path: Option<String>,
+}
+
+impl GitHubModelContextExtension {
+
+}
 
 impl zed::Extension for GitHubModelContextExtension {
     fn new() -> Self {
-        Self
+        Self {
+            cached_binary_path: None;
+        }
     }
 
     fn context_server_command(
