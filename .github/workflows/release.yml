@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: huacnlee/zed-extension-action@v1
         with:
-          extension-name: mcp-server-linear
+          extension-name: mcp-server-github
           # extension-path: extensions/${{ extension-name }}
           push-to: LoamStudios/zed-extensions
         env:
