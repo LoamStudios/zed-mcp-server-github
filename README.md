@@ -22,8 +22,14 @@ This extension integrates [GitHub MCP Server](https://github.com/github/github-m
     }
 }
 ```
+[settings.json] #ref
+
+![settings.json](https://github.com/user-attachments/assets/bd4be132-c58a-46ea-a194-a4a30389ff2c)
 
 4. Enable and configure the GitHub profile using Zed's tools panel
+
+## 🛠️ See it in action
+[Video Demo](https://github.com/user-attachments/assets/789eb173-cb94-4c2f-b281-c302502ebaba)
 
 ## 🛠️ Available Tools
 
