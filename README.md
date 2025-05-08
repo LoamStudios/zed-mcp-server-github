@@ -1,8 +1,5 @@
 # GitHub MCP Server Extension for Zed
 
-This extension integrates [GitHub MCP Server](https://github.com/github/github-mcp-server) as a context server for
-(Zed's)[https://zed.dev] [Assistant.](https://zed.dev/docs/assistant/assistant)
-
 This extension integrates [GitHub MCP Server](https://github.com/github/github-mcp-server) as a context server for [Zed's](https://zed.dev) [Assistant](https://zed.dev/docs/assistant/assistant).
 
 ## 🚀 Installation
