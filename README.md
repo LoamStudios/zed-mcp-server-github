@@ -1,6 +1,7 @@
 # GitHub MCP Server Extension for Zed
 
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+This extension integrates [GitHub MCP Server](https://github.com/github/github-mcp-server) as a context server for
+(Zed's)[https://zed.dev] [Assistant.](https://zed.dev/docs/assistant/assistant)
 
 This extension integrates [GitHub MCP Server](https://github.com/github/github-mcp-server) as a context server for [Zed's](https://zed.dev) [Assistant](https://zed.dev/docs/assistant/assistant).
 
