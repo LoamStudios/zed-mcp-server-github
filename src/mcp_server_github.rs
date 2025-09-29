@@ -65,7 +65,13 @@ impl GitHubModelContextExtension {
         let version_dir = format!("{BINARY_NAME}-{}", release.version);
         fs::create_dir_all(&version_dir)
             .map_err(|err| format!("failed to create directory '{version_dir}': {err}"))?;
-        let binary_path = format!("{version_dir}/{BINARY_NAME}");
+        let binary_path = format!(
+            "{version_dir}/{BINARY_NAME}{suffix}",
+            suffix = match platform {
+                zed::Os::Windows => ".exe",
+                _ => "",
+            }
+        );
 
         if !fs::metadata(&binary_path).map_or(false, |stat| stat.is_file()) {
             let file_kind = match platform {
