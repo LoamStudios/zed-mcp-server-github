@@ -1,7 +1,7 @@
 id = "mcp-server-github"
 name = "GitHub MCP Server"
 description = "Model Context Protocol Server for GitHub"
-version = "0.0.3"
+version = "0.0.4"
 schema_version = 1
 authors = ["Jeffrey Guenther <guenther.jeffrey@gmail.com>"]
 repository = "https://github.com/LoamStudios/zed-mcp-server-github"
