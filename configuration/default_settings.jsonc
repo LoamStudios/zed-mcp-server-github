@@ -1,4 +1,27 @@
 {
-  /// Your GitHub Personal Access Token
-  "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN"
+  // Option 1: Automatic Authentication (Recommended) ⭐
+  // Uses GitHub CLI - no hardcoded tokens required!
+  // Setup: gh auth login
+  "context_servers": {
+    "mcp-server-github": {
+      "source": "extension",
+      "settings": {
+        "use_wrapper_script": true
+      }
+    }
+  }
+}
+// OR
+{
+  // Option 2: Direct Token Configuration
+  // Get token: gh auth token
+  // Or create at: https://github.com/settings/tokens
+  "context_servers": {
+    "mcp-server-github": {
+      "source": "extension",
+      "settings": {
+        "github_personal_access_token": "ghp_your_token_here"
+      }
+    }
+  }
 }
