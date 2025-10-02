@@ -12,6 +12,7 @@ const BINARY_NAME: &str = "github-mcp-server";
 #[derive(Debug, Deserialize, JsonSchema)]
 struct GitHubContextServerSettings {
     github_personal_access_token: String,
+    github_host: Option<String>,
 }
 
 struct GitHubModelContextExtension {
@@ -119,13 +120,19 @@ impl zed::Extension for GitHubModelContextExtension {
         let settings: GitHubContextServerSettings =
             serde_json::from_value(settings).map_err(|e| e.to_string())?;
 
+        let mut env: Vec<(String, String)> = vec![(
+            "GITHUB_PERSONAL_ACCESS_TOKEN".into(),
+            settings.github_personal_access_token,
+        )];
+
+        if let Some(github_host) = settings.github_host.filter(|h| !h.trim().is_empty()) {
+            env.push(("GITHUB_HOST".into(), github_host));
+        }
+
         Ok(Command {
             command: self.context_server_binary_path(context_server_id)?,
             args: vec!["stdio".to_string()],
-            env: vec![(
-                "GITHUB_PERSONAL_ACCESS_TOKEN".into(),
-                settings.github_personal_access_token,
-            )],
+            env,
         })
     }
 
