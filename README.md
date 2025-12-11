@@ -10,9 +10,8 @@ You'll need to [create](https://github.com/settings/tokens) a PAT with `repo` pe
 ```json
 "context_servers": {
   "mcp-server-github": {
-      "source": "extension",
       "settings": {
-      "github_personal_access_token": "<GITHUB_PERSONAL_ACCESS_TOKEN>"
+        "github_personal_access_token": "<GITHUB_PERSONAL_ACCESS_TOKEN>"
     }
   }
 },
