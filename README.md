@@ -5,7 +5,7 @@ This extension integrates [GitHub MCP Server](https://github.com/github/github-m
 
 To install navigate to: **Zed** > **Extensions**. Or use the command palette ([macOS](https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-macos.json#L581), [Linux](https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json#L459)) to search `extensions`.
 
-You'll need to [create](https://github.com/settings/tokens) a PAT with `repo` permissions.
+You'll need to [create a PAT with `repo` permissions](https://github.com/settings/tokens/new?description=zed-mcp-server-github&scopes=repo).
 
 ```json
 "context_servers": {
