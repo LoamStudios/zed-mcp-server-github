@@ -9,9 +9,22 @@ use zed_extension_api::{
 const REPO_NAME: &str = "github/github-mcp-server";
 const BINARY_NAME: &str = "github-mcp-server";
 
-#[derive(Debug, Deserialize, JsonSchema)]
+#[derive(Debug, Default, Deserialize, JsonSchema)]
 struct GitHubContextServerSettings {
-    github_personal_access_token: String,
+    /// Personal access token. When unset, the server logs in with OAuth in your browser.
+    github_personal_access_token: Option<String>,
+    /// GitHub Enterprise Server or ghe.com host, e.g. `https://github.example.com`.
+    github_host: Option<String>,
+    /// Only expose read-only tools.
+    #[serde(default)]
+    read_only: bool,
+    /// Toolsets to enable, e.g. `["repos", "issues", "pull_requests"]`.
+    toolsets: Option<Vec<String>>,
+}
+
+/// Returns `value` unless it is missing or blank.
+fn non_empty(value: Option<String>) -> Option<String> {
+    value.filter(|value| !value.trim().is_empty())
 }
 
 struct GitHubModelContextExtension {
@@ -113,19 +126,29 @@ impl zed::Extension for GitHubModelContextExtension {
         project: &Project,
     ) -> Result<Command> {
         let settings = ContextServerSettings::for_project("mcp-server-github", project)?;
-        let Some(settings) = settings.settings else {
-            return Err("missing `github_personal_access_token` setting".into());
+        let settings: GitHubContextServerSettings = match settings.settings {
+            Some(settings) => serde_json::from_value(settings).map_err(|e| e.to_string())?,
+            None => GitHubContextServerSettings::default(),
         };
-        let settings: GitHubContextServerSettings =
-            serde_json::from_value(settings).map_err(|e| e.to_string())?;
+
+        let mut env = Vec::new();
+        if let Some(token) = non_empty(settings.github_personal_access_token) {
+            env.push(("GITHUB_PERSONAL_ACCESS_TOKEN".into(), token));
+        }
+        if let Some(host) = non_empty(settings.github_host) {
+            env.push(("GITHUB_HOST".into(), host));
+        }
+        if settings.read_only {
+            env.push(("GITHUB_READ_ONLY".into(), "1".into()));
+        }
+        if let Some(toolsets) = settings.toolsets.filter(|toolsets| !toolsets.is_empty()) {
+            env.push(("GITHUB_TOOLSETS".into(), toolsets.join(",")));
+        }
 
         Ok(Command {
             command: self.context_server_binary_path(context_server_id)?,
             args: vec!["stdio".to_string()],
-            env: vec![(
-                "GITHUB_PERSONAL_ACCESS_TOKEN".into(),
-                settings.github_personal_access_token,
-            )],
+            env,
         })
     }
 

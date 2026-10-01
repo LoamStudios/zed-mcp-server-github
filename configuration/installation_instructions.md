@@ -1,1 +1,3 @@
-To use GitHub's MCP, go to your account's Developer Settings and [create a Personal Access Token](https://github.com/settings/tokens/new?description=zed-mcp-server-github&scopes=repo).
+No token is needed on github.com: on the first tool call, the server opens your browser to log in with OAuth. The token is kept in memory, so you'll log in again after Zed restarts. If you don't finish within Zed's 60-second request timeout, the first request fails; retry it once you've approved.
+
+To use a token instead, [create a fine-grained Personal Access Token](https://github.com/settings/personal-access-tokens/new) (or a [classic token with `repo` scope](https://github.com/settings/tokens/new?description=zed-mcp-server-github&scopes=repo)) and set `github_personal_access_token`. A token is required for GitHub Enterprise Server and ghe.com.
