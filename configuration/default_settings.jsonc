@@ -1,4 +1,11 @@
 {
-  /// Your GitHub Personal Access Token
-  "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN"
+  /// Optional. Without a token, the server logs in with OAuth in your
+  /// browser on the first tool call.
+  // "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN",
+  /// Optional. GitHub Enterprise Server or ghe.com host.
+  // "github_host": "https://github.example.com",
+  /// Optional. Only expose read-only tools.
+  // "read_only": true,
+  /// Optional. Toolsets to enable.
+  // "toolsets": ["repos", "issues", "pull_requests"]
 }

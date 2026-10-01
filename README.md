@@ -5,14 +5,29 @@ This extension integrates [GitHub MCP Server](https://github.com/github/github-m
 
 To install navigate to: **Zed** > **Extensions**. Or use the command palette ([macOS](https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-macos.json#L581), [Linux](https://github.com/zed-industries/zed/blob/main/assets/keymaps/default-linux.json#L459)) to search `extensions`.
 
-You'll need to [create a PAT with `repo` permissions](https://github.com/settings/tokens/new?description=zed-mcp-server-github&scopes=repo).
+## Authentication
+
+**OAuth (default).** On github.com no setup is needed. On the first tool call, the server opens your browser to log in. The token is kept in memory only, so you'll log in again after Zed restarts. If you take longer than Zed's request timeout (`context_server_timeout`, 60 seconds by default) to approve, the first request fails; retry it once you've approved.
+
+**Personal access token.** [Create a fine-grained token](https://github.com/settings/personal-access-tokens/new) (or a [classic token with `repo` scope](https://github.com/settings/tokens/new?description=zed-mcp-server-github&scopes=repo)) and add it to your settings. A token is required for GitHub Enterprise Server and ghe.com.
 
 ```json
 "context_servers": {
   "mcp-server-github": {
-      "settings": {
-        "github_personal_access_token": "<GITHUB_PERSONAL_ACCESS_TOKEN>"
+    "settings": {
+      "github_personal_access_token": "<GITHUB_PERSONAL_ACCESS_TOKEN>"
     }
   }
 },
 ```
+
+## Settings
+
+All settings are optional.
+
+| Setting | Description |
+| --- | --- |
+| `github_personal_access_token` | Token to use instead of OAuth. |
+| `github_host` | GitHub Enterprise Server or ghe.com host, e.g. `https://github.example.com`. |
+| `read_only` | `true` to only expose read-only tools. |
+| `toolsets` | Toolsets to enable, e.g. `["repos", "issues", "pull_requests"]`. See the [list of toolsets](https://github.com/github/github-mcp-server#available-toolsets). |
